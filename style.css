@@ -1,0 +1,814 @@
+/* General Resets & Base Styles */
+:root {
+  --primary-color: #2563eb; /* Blue-500 */
+  --secondary-color: #1d4ed8; /* Blue-700 */
+  --accent-color: #f59e0b; /* Amber-500 */
+  --text-color-dark: #1f2937; /* Gray-800 */
+  --text-color-light: #f9fafb; /* Gray-50 */
+  --bg-color-light: #ffffff;
+  --bg-color-dark: #f3f4f6; /* Gray-100 */
+  --border-color: #e5e7eb; /* Gray-200 */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color-dark);
+  background-color: var(--bg-color-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: var(--bg-color-light);
+  box-shadow: var(--shadow-sm);
+  gap: 1rem;
+}
+
+.main-header .left {
+  display: flex;
+  align-items: center;
+}
+
+.main-header .left img {
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+.main-header .center {
+  flex-grow: 1;
+  display: flex;
+  gap: 0.5rem;
+  max-width: 600px; /* Limit search bar width */
+}
+
+.main-header .top-search {
+  flex-grow: 1;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.main-header .top-search:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+.main-header .btn {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--primary-color);
+  color: var(--text-color-light);
+  border: none;
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.main-header .btn:hover {
+  background-color: var(--secondary-color);
+  transform: translateY(-1px);
+}
+
+.main-header .btn:active {
+  transform: translateY(0);
+}
+
+.main-header .lang-switch {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  background-color: var(--bg-color-light);
+  font-size: 1rem;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Slideshow Section */
+.slideshow {
+  position: relative;
+  width: 100%;
+  height: 400px; /* Adjust as needed */
+  overflow: hidden;
+  background-color: #ccc; /* Placeholder background */
+}
+
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color-light);
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.slide::before { /* Overlay for better text readability */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.slide h2 {
+    z-index: 1;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.slide-controls {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  padding: 0 1rem;
+  z-index: 10;
+}
+
+.slide-controls button {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: var(--text-color-light);
+  border: none;
+  padding: 0.8rem 1.2rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.slide-controls button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Main Content Layout */
+main {
+  display: flex;
+  flex: 1; /* Allows main to grow and take available space */
+  padding: 1.5rem;
+  gap: 1.5rem;
+}
+
+aside#list {
+  flex: 0 0 280px; /* Fixed width sidebar, adjust as needed */
+  background-color: var(--bg-color-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  overflow-y: auto; /* Scrollable if content exceeds height */
+  max-height: calc(100vh - 200px); /* Example: Adjust based on header/footer */
+}
+
+.map-wrap {
+  flex: 1; /* Map section takes remaining space */
+  background-color: var(--bg-color-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+  position: relative; /* For absolute positioning of sub-elements */
+  overflow: hidden; /* Ensure minimap doesn't overflow when resizing */
+  min-height: 600px; /* Minimum height for map area */
+  display: flex; /* Allow content inside to flex */
+  flex-direction: column;
+}
+
+/* Map specific styling */
+#map {
+  width: 100%;
+  height: 300px; /* Example height for map */
+  background-color: #e0e7ff; /* Light blue placeholder for map */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+  border-top-left-radius: var(--border-radius-lg);
+  border-top-right-radius: var(--border-radius-lg);
+}
+
+#pannellum-container {
+    background-color: #d1d5db; /* Gray placeholder for pano */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-color-dark);
+    font-weight: 600;
+}
+
+#pano {
+    border-bottom-left-radius: var(--border-radius-lg);
+    border-bottom-right-radius: var(--border-radius-lg);
+    overflow: hidden; /* Ensures pannellum content stays within bounds */
+    height: 420px; /* Adjust as needed */
+    flex-grow: 1; /* Allow pano to fill remaining height if map is smaller */
+}
+
+#details {
+  padding: 1.5rem;
+  background-color: var(--bg-color-light);
+  border-bottom-left-radius: var(--border-radius-lg);
+  border-bottom-right-radius: var(--border-radius-lg);
+  display: none; /* Hidden by default, show when an item is selected */
+}
+
+/* Animated Cards (Buttons on Pano) */
+#panoActions {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.animated-card {
+    background-color: rgba(var(--primary-color-rgb, 37, 99, 235), 0.9); /* Use RGBA for transparency */
+    color: var(--text-color-light);
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease-in-out;
+    backdrop-filter: blur(5px); /* Optional: blur background behind button */
+}
+
+.animated-card:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+}
+
+.animated-card:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-md);
+}
+
+/* Minimap */
+#minimap-wrap {
+  background-color: var(--bg-color-light);
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 999;
+  display: none; /* Initially hidden */
+  position: absolute; /* Already absolute in HTML */
+  resize: both;
+  overflow: hidden;
+  cursor: grab; /* Indicates draggable */
+  min-width: 100px;
+  min-height: 100px;
+  max-width: 90vw; /* Prevent it from being too wide */
+  max-height: 90vh; /* Prevent it from being too tall */
+}
+
+#minimap {
+  width: 100%;
+  height: 100%;
+  background-color: #a7f3d0; /* Light green placeholder for minimap */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  color: #059669; /* Green text */
+  font-weight: 600;
+}
+
+#minimap-toggle {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+#minimap-toggle:hover {
+    background-color: var(--secondary-color);
+    transform: rotate(90deg);
+}
+
+/* Chatbot */
+.chat-box {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: 350px;
+  height: 400px; /* Fixed height for chat box */
+  background-color: var(--bg-color-light);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ensure content doesn't spill */
+}
+
+.chat-box > div:first-child { /* Chat header */
+  padding: 12px;
+  font-weight: bold;
+  background: var(--primary-color);
+  color: var(--text-color-light);
+  border-top-left-radius: var(--border-radius-lg);
+  border-top-right-radius: var(--border-radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-box > div:first-child button {
+    background: none;
+    border: none;
+    color: var(--text-color-light);
+    font-size: 1.5rem; /* Larger close icon */
+    cursor: pointer;
+    line-height: 1; /* Align 'x' correctly */
+}
+
+.chat-box > div:nth-child(2) { /* Chat messages area */
+  padding: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  flex-grow: 1; /* Allows message area to fill space */
+}
+
+.chat-box .chat-input-wrap {
+    padding: 12px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 8px;
+}
+
+.chat-box .chat-input-wrap input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    outline: none;
+}
+
+.chat-box .chat-input-wrap button {
+    padding: 8px 12px;
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Footer */
+footer {
+  padding: 1rem 1.5rem;
+  text-align: center;
+  color: var(--text-color-dark);
+  background-color: var(--bg-color-light);
+  border-top: 1px solid var(--border-color);
+  margin-top: auto; /* Pushes footer to the bottom */
+  box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Specific elements for placeholder lists and details */
+.monastery-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.monastery-list li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.1s ease-in-out;
+}
+
+.monastery-list li:hover {
+    background-color: var(--bg-color-dark);
+    border-radius: var(--border-radius-sm);
+}
+
+.monastery-list li:last-child {
+    border-bottom: none;
+}
+
+.monastery-list li img {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--border-radius-sm);
+    object-fit: cover;
+}
+
+.monastery-details h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.monastery-details p {
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.monastery-details .tags span {
+    display: inline-block;
+    background-color: #bfdbfe; /* Light blue */
+    color: #1e40af; /* Darker blue */
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Utility Classes */
+.hidden {
+  display: none !important;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    main {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    aside#list {
+        flex: 0 0 auto; /* Allow sidebar to take full width */
+        max-height: 300px; /* Limit height for scroll */
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .map-wrap {
+        min-height: 450px;
+    }
+
+    #panoActions {
+        flex-direction: row; /* Buttons stack horizontally */
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: center;
+        position: static; /* Remove absolute positioning */
+        margin-top: 1rem; /* Add space below pano */
+        padding: 0 1.5rem;
+    }
+
+    .animated-card {
+        flex: 1 1 auto; /* Allow buttons to grow */
+        max-width: 48%; /* Two buttons per row */
+        margin: 0.25rem;
+    }
+
+    .chat-box {
+        width: 90%;
+        height: 60%;
+        left: 5%;
+        right: 5%;
+        bottom: 1rem;
+    }
+
+    .main-header .center {
+        max-width: 100%; /* Allow search to expand */
+        order: 3; /* Move search to bottom on small screens */
+        width: 100%;
+    }
+
+    .main-header {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+    }
+
+    .main-header .left, .main-header .right {
+        order: 1; /* Keep logo and right buttons at top */
+    }
+
+    .main-header .right {
+        margin-left: auto; /* Push right items to right */
+    }
+
+    .main-header .btn, .main-header .top-search, .main-header .lang-switch {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .slideshow {
+        height: 300px;
+    }
+
+    .slide h2 {
+        font-size: 1.8rem;
+    }
+
+    #minimap-toggle {
+        top: auto;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 1001; /* Ensure it's above chat if they overlap */
+    }
+
+    #minimap-wrap {
+        top: auto;
+        bottom: 60px; /* Above the minimap toggle */
+        right: 1rem;
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .animated-card {
+        max-width: 100%; /* One button per row */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .main-header .left, .main-header .right, .main-header .center {
+        width: 100%;
+        margin: 0;
+    }
+    .main-header .right {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.5rem;
+    }
+    .main-header .btn {
+        flex-grow: 1;
+    }
+    .main-header .center {
+        margin-top: 0.5rem;
+    }
+    .main-header .top-search + .btn {
+        flex-grow: 0; /* Don't want search button to grow fully */
+    }
+
+    .slide h2 {
+        font-size: 1.5rem;
+    }
+
+   .chat-box {
+  position: fixed;
+  bottom: 80px;          /* sits above footer */
+  right: 20px;
+  width: 320px;
+  max-height: 400px;
+  background: #fff;
+  border: 2px solid #4caf50;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 5000;         /* stays above everything */
+  font-family: 'Inter', sans-serif;
+}
+
+.chat-box > div:first-child {
+  background: #4caf50;
+  color: #fff;
+  padding: 8px 12px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-box button {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.chat-box button:hover {
+  color: #f1f1f1;
+}
+
+.chat-box > div:nth-child(2) {
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+  font-size: 14px;
+  color: #333;
+}
+
+/* ---------- Glowing search bar (namespaced) ---------- */
+.glow-search {
+  --input-h: 56px;
+  --radius: 10px;
+  --input-padding-left: 48px;
+  --input-padding-right: 12px;
+  --max-w: 700px; /* adjust maximum width of the search area inside header */
+  width: 100%;
+  max-width: var(--max-w);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 0.25rem 0;
+  box-sizing: border-box;
+}
+
+/* Decorative frames (glow layers) */
+.glow-search__glow,
+.glow-search__border,
+.glow-search__white {
+  position: absolute;
+  inset: 0;
+  border-radius: calc(var(--radius) + 6px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Subtle multi-color glow behind input */
+.glow-search__glow {
+  filter: blur(30px);
+  opacity: 0.35;
+  background-image: conic-gradient(#000, #402fb5 5%, #000 38%, #cf30aa 60%, #000 87%);
+  transform: rotate(60deg);
+}
+
+/* dark slanted border */
+.glow-search__border {
+  filter: blur(1px);
+  background-image: conic-gradient(#1c191c, #402fb5 5%, #1c191c 14%, #cf30aa 60%, #1c191c 64%);
+  transform: rotate(70deg);
+}
+
+/* pale highlight */
+.glow-search__white {
+  filter: blur(2px);
+  background-image: conic-gradient(rgba(0,0,0,0), #a099d8, rgba(0,0,0,0) 8%, #dfa2da 58%);
+  transform: rotate(83deg);
+}
+
+/* Main input container (higher z-index to overlay decorative frames) */
+.glow-search__main {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-sizing: border-box;
+}
+
+/* The input itself - keep appearance consistent with your header */
+.glow-search__input {
+  width: 100%;
+  height: var(--input-h);
+  border-radius: var(--radius);
+  padding: 0 12px 0 calc(var(--input-padding-left));
+  font-size: 1rem;
+  border: none;
+  outline: none;
+  color: inherit;
+  background-color: #010201; /* dark field to match glow */
+  box-shadow: 0 1px 0 rgba(255,255,255,0.02) inset;
+  transition: box-shadow 0.2s ease, outline 0.12s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Focus state */
+.glow-search__input:focus {
+  outline: 2px solid rgba(99,86,216,0.45);
+  box-shadow: 0 6px 30px rgba(67,52,160,0.16);
+}
+
+/* Placeholder color */
+.glow-search__input::placeholder {
+  color: #c0b9c0;
+  opacity: 1;
+}
+
+/* small decorative masks (optional, purely visual) */
+.glow-search__input-mask {
+  pointer-events: none;
+  width: 120px;
+  height: 22px;
+  position: absolute;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.6));
+  top: 50%;
+  left: 84px;
+  transform: translateY(-50%);
+  z-index: 4;
+}
+.glow-search__pink-mask {
+  pointer-events: none;
+  width: 40px;
+  height: 22px;
+  position: absolute;
+  background: #cf30aa;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  filter: blur(18px);
+  opacity: 0.8;
+  z-index: 2;
+  transition: opacity 0.35s ease;
+}
+.glow-search__main:hover > .glow-search__pink-mask { opacity: 0; }
+
+/* Search icon positioned on the left */
+.glow-search__icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  color: #d6d6e6;
+}
+
+/* If you want a smaller icon on very small screens */
+@media (max-width: 520px) {
+  .glow-search__icon { left: 12px; }
+  .glow-search__input { padding-left: calc(var(--input-padding-left) - 10px); }
+}
+
+/* Keep your header's search button look but align it with the new input */
+.glow-search__action {
+  height: var(--input-h);
+  border-radius: var(--radius);
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  z-index: 6;
+  margin-left: 6px;
+}
+
+/* Ensure we don't break smaller header layouts */
+@media (max-width: 1024px) {
+  .glow-search { max-width: 100%; }
+  .glow-search__action { padding: 0 10px; }
+}
