@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="/Echoes-of-Sikkim-2/">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Echoes of Sikkim</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="./manifest.json">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- Razorpay -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <!-- Pannellum CDN (required for panorama viewer) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css">
+  <script src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+</head>
+<body>
+  <div class="app">
+    <header class="main-header">
+      <div class="left">
+        <img src="./assets/logo.png" alt="logo">
+      </div>
+
+      <!-- CENTER: glowing search bar -->
+      <div class="center">
+        <div class="glow-search">
+          <div class="glow-search__glow" aria-hidden="true"></div>
+          <div class="glow-search__border" aria-hidden="true"></div>
+          <div class="glow-search__white" aria-hidden="true"></div>
+
+          <div class="glow-search__main" role="search">
+            <label for="topSearch" class="visually-hidden">Search</label>
+
+            <input
+              id="topSearch"
+              name="text"
+              type="search"
+              placeholder="Search monasteries, history, tours..."
+              class="glow-search__input"
+              autocomplete="off"
+              aria-label="Search"
+            />
+
+            <div class="glow-search__input-mask" aria-hidden="true"></div>
+            <div class="glow-search__pink-mask" aria-hidden="true"></div>
+
+            <div class="glow-search__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="7"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+
+            <button id="topSearchBtn" class="glow-search__action btn" type="button">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <button id="chatOpen" class="btn">Chat</button>
+        <select id="langSwitch" class="lang-switch"></select>
+      </div>
+    </header>
+
+    <section class="slideshow" id="slideshow">
+      <div class="slides" id="slides"></div>
+      <div class="slide-controls">
+        <button id="prevSlide">‹</button>
+        <button id="nextSlide">›</button>
+      </div>
+    </section>
+
+    <main>
+      <aside id="list"></aside>
+      <section class="map-wrap">
+        <div id="map">Map Placeholder</div>
+        <div id="pano">
+          <div id="pannellum-container">Panorama Placeholder</div>
+        </div>
+        <div id="details" class="details"></div>
+
+        <div id="panoActions">
+          <button id="openTourBtn" class="animated-card">Open Tour</button>
+          <button id="downloadTourBtn" class="animated-card">Download Tour</button>
+          <button id="storyBtn" class="animated-card">Story Mode</button>
+          <button id="downloadRouteBtn" class="animated-card">Download Route</button>
+          <button id="offlineNavBtn" class="animated-card">Start Offline Nav</button>
+        </div>
+
+        <div id="minimap-wrap">
+          <div id="minimap">Mini Map</div>
+        </div>
+        <button id="minimap-toggle">⚙</button>
+      </section>
+    </main>
+
+    <footer><p>Prototype. Data is illustrative.</p></footer>
+
+    <!-- Chat popup container (updated inline UI) -->
+    <div id="chatbot" class="chat-box hidden" aria-hidden="true">
+      <div class="chat-header" style="display:flex;justify-content:space-between;align-items:center;padding:12px 16px;">
+        <strong>Chat</strong>
+        <button id="chatClose" aria-label="Close chat" style="background:none;border:none;font-size:20px;cursor:pointer;">×</button>
+      </div>
+
+      <div class="chat-messages" style="padding:12px;overflow-y:auto;max-height:320px;background:#fff;">
+        <p style="color:#111;margin:0">Hi! This is the chat window. You can style and script me in app.js</p>
+      </div>
+
+      <div class="chat-input-wrap" style="display:flex;gap:8px;padding:12px;border-top:1px solid #e5e7eb;background:#fff;">
+        <input id="chatInput" type="text" placeholder="Ask something..." style="flex:1;padding:8px;border:1px solid #e5e7eb;border-radius:8px;" />
+        <button id="chatSend" class="btn" style="padding:8px 12px;border-radius:8px;">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="./app.js"></script>
+  <script>
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('/Echoes-of-Sikkim-2/service-worker.js');
+    }
+
+    // Chat open/close (still works)
+    document.getElementById('chatOpen').addEventListener('click', () => {
+      document.getElementById('chatbot').classList.remove('hidden');
+      document.getElementById('chatbot').setAttribute('aria-hidden', 'false');
+      const input = document.getElementById('chatInput');
+      if (input) input.focus();
+    });
+    document.getElementById('chatClose').addEventListener('click', () => {
+      document.getElementById('chatbot').classList.add('hidden');
+      document.getElementById('chatbot').setAttribute('aria-hidden', 'true');
+    });
+  </script>
+</body>
+</html>
